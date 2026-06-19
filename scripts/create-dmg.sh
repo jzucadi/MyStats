@@ -7,7 +7,6 @@ set -e
 
 # Configuration
 APP_NAME="SysStats"
-BUNDLE_ID="com.example.SysStats"
 VERSION="${1:-1.0}"
 BUILD_DIR="${2:-build/Release}"
 OUTPUT_DIR="${3:-dist}"

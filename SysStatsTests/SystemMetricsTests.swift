@@ -55,16 +55,17 @@ final class SystemMetricsTests: XCTestCase {
 
     func testStatusBarTextCPUOnly() {
         let metrics = SystemMetrics(cpuUsage: 75, gpuUsage: 30, ramUsage: 60, temperature: 55.0)
+        let prefs = MockPreferences(showCPU: true, showGPU: false, showRAM: false, showTemperature: false)
 
-        // Test the expected format
-        XCTAssertTrue(metrics.cpuUsage == 75)
+        XCTAssertEqual(metrics.statusBarText(prefs: prefs), "C:75%")
     }
 
     func testStatusBarTextNoStatsEnabled() {
         let metrics = SystemMetrics(cpuUsage: 50, gpuUsage: 30, ramUsage: 60, temperature: 55.0)
+        let prefs = MockPreferences(showCPU: false, showGPU: false, showRAM: false, showTemperature: false)
 
-        // When all stats are disabled, should show "SysStats"
-        // This would require injecting preferences
+        // When every stat is disabled, the status bar falls back to the app name.
+        XCTAssertEqual(metrics.statusBarText(prefs: prefs), "SysStats")
     }
 
     // MARK: - Metrics Values Tests
